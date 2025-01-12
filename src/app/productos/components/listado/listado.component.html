@@ -1,1 +1,7 @@
-<p>listado works!</p>
+<h2>Listado de Productos</h2>
+<p><button (click)="leerTodos()">Leer todos los productos</button><button (click)="borrarPantalla()">Borrar Pantalla</button></p>
+<ul>
+    <li *ngFor="let p of lista">
+        {{p.id}}  {{p.title}} {{p.description}}
+    </li>
+</ul>
