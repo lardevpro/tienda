@@ -7,7 +7,7 @@ import { Observer, Subject } from 'rxjs';
 @Injectable()
 export class ConexionService {
 
-  private productos$=new Subject<Producto[]>();//subject crea observables porque exitende a la clase Obsevable
+  private productos$=new Subject<Producto[] | null>();//subject crea observables porque exitende a la clase Obsevable
 
   constructor(private http: HttpClient) { }
 
@@ -25,8 +25,9 @@ export class ConexionService {
         this.productos$.next(e);
       },
       error:e=> {
-        console.log('-------Error');
-        //no hago nada
+        console.log('-------Error');//en caso de error muestro mensaje personalizado
+        console.log(e); //muestro el error
+        this.productos$.next(null); //envio un null para que el componente lo muestre
       },
       complete:()=> {
         console.log('------Complete');

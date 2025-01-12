@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ListadoComponent } from './components/listado/listado.component';
 import { ConexionService } from './services/conexion.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 
 
 
@@ -15,7 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
   ],
   providers: [
-    ConexionService
+    ConexionService,
+    provideHttpClient(withFetch())
   ],
   exports: [
     ListadoComponent

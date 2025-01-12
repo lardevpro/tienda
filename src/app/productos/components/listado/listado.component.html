@@ -1,4 +1,5 @@
 <h2>Listado de Productos</h2>
+<h2 *ngIf="mensajeError">Se ha producido un error, inténtelo de nuevo más tarde</h2>
 <p><button (click)="leerTodos()">Leer todos los productos</button><button (click)="borrarPantalla()">Borrar Pantalla</button></p>
 <ul>
     <li *ngFor="let p of lista">

@@ -12,7 +12,9 @@ import { Producto } from '../../models/producto';
 })
 export class ListadoComponent implements OnInit {
 
-  lista: Producto[] = [];//solo en los componentes que solo muestran
+  lista: Producto[] | null = [];//solo en los componentes que solo muestran
+
+  mensajeError = false;
 
   constructor(private servicio: ConexionService) {
   
@@ -20,13 +22,20 @@ export class ListadoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // let observador: Observer<Producto[]> = {
-    //   next:lista=> this.lista = lista,
-    //   error:e=>{},
-    //   complete:()=>{},
-    // };
+    /* let observador: Observer<Producto[]> = { //forma normal de suscribirse a un observable
+      next:lista=> this.lista = lista,
+      error:e=>{},
+      complete:()=>{},
+    }; */
     
-    this.servicio.getProductos$().subscribe(lista=>this.lista = lista);
+    //this.servicio.getProductos$().subscribe(lista=>this.lista = lista, e =>{}, ()=>{});// Otra forma de suscribirse a un observable
+    
+    this.servicio.getProductos$().subscribe(lista=>{
+      console.log('La respuesta ha llegado asincronamente...');
+      console.log(this.mensajeError);
+      if(lista == null) this.mensajeError = true;
+      else this.lista = lista;
+    });//forma simplificada de suscribirse a un observable
     
   }
 
@@ -35,6 +44,7 @@ export class ListadoComponent implements OnInit {
   }
 
   borrarPantalla(){
+    this.mensajeError = false;
     this.lista = [];
   }
 }
