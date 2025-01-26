@@ -21,11 +21,12 @@ export class ListadoComponent implements OnInit {
 
   ngOnInit(): void {
     this.servicio.getProductos$().subscribe(lista => {
-      console.log('La respuesta ha llegado asincronamente...');
+      this.lista = lista; 
+      console.log('La respuesta ha llegado asincronamente...', lista);
       if (lista == null) {
         this.mensajeError = true;
       } else {
-        this.lista = lista; // Asegúrate de que el servicio devuelve una lista de objetos Producto
+        this.lista = lista; 
       }
     });
   }
